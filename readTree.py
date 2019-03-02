@@ -56,12 +56,6 @@ def read(path, schema):
 
     rawTree = normalize(rawTree)
 
-    #rawTree.print_plot()
-
-    #for n in rawTree:
-    #    print(str(n.norm_root_distance) + "\t" + str(n.root_distance) + "\t" + str(n))
-
-    #What do with forests?
     root = create(rawTree.seed_node)
 
     fixZeroLengthEdges(root)
@@ -136,12 +130,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-#trees = readTrees("Trees/50TaxaTrees.nex", "nexus")
-
-#tree = read("Trees/T72324.nex", "nexus")
-#
-#tree.printMe(0)
-#
-#embedTree(tree)
-#
-#tree.printMe(0)

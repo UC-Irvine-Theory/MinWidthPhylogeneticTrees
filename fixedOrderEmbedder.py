@@ -1,7 +1,6 @@
 from collections import deque
 from enum import IntEnum
 from node import Node
-import pdb
 
 FIXED_DEBUG = False
 
@@ -133,10 +132,6 @@ def topologicalSort(vertices):
             if inCounts[n] == 0:
                 queue.append(n)
 
-   #print("Topo Order")
-   #for v in result:
-   #    print( (v.node.height, v.type.name))
-
     return result
 
 def assignLeftLeaning(order):
@@ -245,12 +240,8 @@ def embedTree(root):
     root.dims=(width,height)
 
     calculateWhiteSpace(vertices, root)
-    #Tighten the nodes
 
     assignToNodes(vertices)
-
-
-    #Check correctness
 
     return width
 
@@ -340,7 +331,7 @@ def addConstraints(node, constraintTable, vertices):
 
 #First add the edge to each row. Notice we don't add leftSide->IncomingEdge-RightSide constraint as it is already added
 
-    leftSide, edgeVertex, rightSide = createVertices(node)
+    leftSide, edgeVertex, rightSide = createVertices(node, node.parent == None)
     vertices.add(leftSide)
     vertices.add(rightSide)
 
@@ -382,17 +373,3 @@ def addEdges(constraintTable):
     for row in constraintTable:
         for i in range(len(row)-1):
             row[i].addEdge(row[i+1])
-
-
-
-
-#leftLeft = Node(None, 8, [])
-#leftRight = Node(None, 10, [])
-#left = Node(None, 5, [leftLeft, leftRight])
-#
-#rightRight = Node(None, 9, [])
-#right = Node(None, 7, [rightRight])
-#
-#root = Node(None, 0, [left,right])
-##
-#embedTree(root)

@@ -1,4 +1,6 @@
 import dendropy
+
+#Represents a tree node and its drawing information
 class Node:
 
     class Stats:

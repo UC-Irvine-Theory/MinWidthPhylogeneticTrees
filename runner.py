@@ -64,7 +64,7 @@ def flip(node):
     node.children.reverse()
     for c in node.children:
         flip(c)
-def write_file(path,schema,seed,allResults,tests,outpath='results.csv'):  
+def write_file(path,schema,seed,allResults,tests,outpath='results.csv'):
     outFile = None
     try:
         outFile = open(outpath, "w")

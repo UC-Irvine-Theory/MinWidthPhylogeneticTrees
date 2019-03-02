@@ -1,9 +1,11 @@
+#Runs random trees testing the correctness of the fixed order embedder
+
+
 import random
 import sys
 
 from node import Node
 from fixedOrderEmbedder import makeDAG, rowMakeDAG
-
 
 def randomTree(size, maxEdgeLength = 20):
 

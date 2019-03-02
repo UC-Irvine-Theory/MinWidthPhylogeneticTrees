@@ -1,8 +1,7 @@
-import pdb
-
 import copy
 import itertools
 import random
+
 from node import Node
 from fixedOrderEmbedder import embedTree
 
@@ -152,7 +151,6 @@ def childSort(root, key, reverse, alternating = False):
 
     return newTree
 
-# Left subtree always has more (or equal) nodes
 def leftHeavy(root):
     return childSort(root, lambda c: c.stats.subtreeSize, reverse = True)
 
@@ -170,31 +168,4 @@ def altDistanceToLeaf(root):
 
 def altNodesToLeaf(root):
     return childSort(root, lambda c: c.stats.nodesToLeaf, reverse = True, alternating = True)
-
-
-def veeShape(root):
-
-    newTree = copy.deepcopy(root)
-
-    def side(node, amLeft):
-        node.children.sort(key = lambda c : c.stats.distanceToLeaf, reverse = amLeft)
-        for c in node.children:
-            side(c, amLeft)
-
-    def middle(node, amLeft):
-        node.children.sort(key = lambda n : n.stats.distanceToLeaf, reverse = amLeft)
-
-        if node.children:
-            if amLeft:
-                for c in node.children[:-1]:
-                    side(c, amLeft)
-                middle(node.children[-1], not amLeft)
-            else:
-                for c in node.children[1:]:
-                    side(c, not amLeft)
-                middle(node.children[0], not amLeft)
-
-    middle(newTree, True)
-
-    return newTree
 
