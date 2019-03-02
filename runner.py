@@ -1,3 +1,4 @@
+import argparse
 import random
 import sys
 
@@ -67,19 +68,27 @@ def makeScatter(allResults,title='Width Achieved for Trees using Different Heuri
 ####################################
 def main():
 
-    seed = random.randint(0, 1000000)
-    random.seed(seed)
+    parser = argparse.ArgumentParser()
 
-    if len(sys.argv) != 3 and len(sys.argv) != 4 :
-        print("Two few arguments expected 2 or 3 (path, schema and optional -s to supress image) and got " + str(len(sys.argv)-1) + " arguments")
-        return
+    parser.add_argument("inputPath", help="Path to file with trees")
+    parser.add_argument("schema", help = 'Schema of input file ("newick", "nexus", "nexml")')
 
-    path = sys.argv[1]
-    schema = sys.argv[2]
-    suppressImage = len(sys.argv) == 4
+    parser.add_argument("-n", "--noImage", help="Suppress images. Generate only csv and plot", action="store_true")
+    parser.add_argument("-s", "--seed"   , help="Set the seed of the random heuristic", type=int)
+    parser.add_argument("-c", "--csvPath", help="Path to csvFile")
 
+    args = parser.parse_args()
+
+    path = args.inputPath
+    schema = args.schema
+
+    suppressImage = args.noImage
     if suppressImage:
         print("Supressing images!")
+
+    csvPath = "results.csv"
+    if args.csvPath:
+        csvPath = args.csvPath
 
     trees = readTrees(path,schema)
 
@@ -117,6 +126,11 @@ def main():
         #(heuristics.altNodesToLeaf, "AltNToLeaf"),
         ]
 
+
+    seed = random.randint(0, 1000000)
+    if args.seed:
+        seed = args.seed
+    random.seed(seed)
     print("Seed : " + str(seed))
     print("Read in " + str(len(trees)))
     allResults = []
@@ -146,7 +160,7 @@ def main():
 
         print("Root Stats: " + str(t.stats) + " \t" + suprises)
 
-    write_file(path,schema,seed,allResults,[name for f,name in tests])
+    write_file(path,schema,seed,allResults,[name for f,name in tests], csvPath)
     makeScatter(allResults)
 
 if __name__ == "__main__":
