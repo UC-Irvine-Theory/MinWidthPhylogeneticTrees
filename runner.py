@@ -12,28 +12,21 @@ from readTree import readTrees
 from node import Node
 from matplotlib.lines import Line2D
 
-def write_file(path,schema,seed,allResults,tests,outpath='results.csv'):
-    outFile = None
-    try:
-        outFile = open(outpath, "w")
-    except:
-        print("Couldn't open result output file: "+outpath )
-        return
-    outFile.write(path + ", " + schema + "\n")
-    outFile.write("Seed, " + str(seed) + "\n")
-    outFile.write("ID, Size, ")
+def writeCSV(path,schema,seed,allResults,tests,csvFile):
+    csvFile.write(path + ", " + schema + "\n")
+    csvFile.write("Seed, " + str(seed) + "\n")
+    csvFile.write("ID, Size, ")
     for name in tests:
-        outFile.write(name + ", ")
-    outFile.write("\n\n")
+        csvFile.write(name + ", ")
+    csvFile.write("\n\n")
 
     for id, size, results in allResults:
-        outFile.write(str(id) + ", " + str(size) + ",\t")
+        csvFile.write(str(id) + ", " + str(size) + ",\t")
         for  name,width in results:
-            outFile.write( str(width) + ", ")
-        outFile.write("\n")
+            csvFile.write( str(width) + ", ")
+        csvFile.write("\n")
 
-    outFile.close()
-
+    csvFile.close()
 
 def makeScatter(allResults,title='Width Achieved for Trees using Different Heuristics'):
     symbols = {
@@ -79,9 +72,6 @@ def main():
 
     args = parser.parse_args()
 
-    path = args.inputPath
-    schema = args.schema
-
     suppressImage = args.noImage
     if suppressImage:
         print("Supressing images!")
@@ -90,9 +80,37 @@ def main():
     if args.csvPath:
         csvPath = args.csvPath
 
-    trees = readTrees(path,schema)
+    csvFile = None
+    try:
+        csvFile = open(csvPath, "w")
+    except:
+        print("Couldn't open csv output file: " + csvPath )
+        return
 
+    seed = random.randint(0, 1000000)
+    if args.seed:
+        seed = args.seed
+    random.seed(seed)
+    print("Seed : " + str(seed))
+
+    path = args.inputPath
+    schema = args.schema
+    trees = readTrees(path,schema)
     print("Finished reading the trees!")
+    print("Read in " + str(len(trees)))
+
+    tests = [
+        (heuristics.identity, "Orig"),
+        (heuristics.randomShuffle, "Random"),
+        (heuristics.greedy, "Greedy"),
+        (heuristics.leftHeavy, "Heavy"),
+        (heuristics.altHeavy, "AltHeavy"),
+        (heuristics.whitespacePhobic, "White"),
+        #(heuristics.distanceToLeaf, "DToLeaf"),
+        #(heuristics.altDistanceToLeaf, "AltDToLeaf"),
+        #(heuristics.nodesToLeaf, "NToLeaf"),
+        #(heuristics.altNodesToLeaf, "AltNToLeaf"),
+        ]
 
     def runTests(id, tree, tests):
 
@@ -113,32 +131,11 @@ def main():
 
         return results
 
-    tests = [
-        (heuristics.identity, "Orig"),
-        (heuristics.randomShuffle, "Random"),
-        (heuristics.greedy, "Greedy"),
-        (heuristics.leftHeavy, "Heavy"),
-        (heuristics.altHeavy, "AltHeavy"),
-        (heuristics.whitespacePhobic, "White"),
-        #(heuristics.distanceToLeaf, "DToLeaf"),
-        #(heuristics.altDistanceToLeaf, "AltDToLeaf"),
-        #(heuristics.nodesToLeaf, "NToLeaf"),
-        #(heuristics.altNodesToLeaf, "AltNToLeaf"),
-        ]
-
-
-    seed = random.randint(0, 1000000)
-    if args.seed:
-        seed = args.seed
-    random.seed(seed)
-    print("Seed : " + str(seed))
-    print("Read in " + str(len(trees)))
     allResults = []
     for i,t in enumerate(trees):
 
         t.fillStats()
         treeSize = t.size()
-
 
         results = runTests(i, t, tests)
 
@@ -160,7 +157,7 @@ def main():
 
         print("Root Stats: " + str(t.stats) + " \t" + suprises)
 
-    write_file(path,schema,seed,allResults,[name for f,name in tests], csvPath)
+    writeCSV(path,schema,seed,allResults,[name for f,name in tests], csvFile)
     makeScatter(allResults)
 
 if __name__ == "__main__":
