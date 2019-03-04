@@ -1,3 +1,4 @@
+import argparse
 import sys
 
 import dendropy
@@ -119,13 +120,17 @@ def cleanFile(path, schema, outputPath):
     trees.write(path=outputPath, schema=schema)
 
 def main():
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("inputPath", help ="Path to file with trees")
+    parser.add_argument("schema"   , help = 'Schema of input file ("newick", "nexus", "nexml")')
+    parser.add_argument("outputPath", help ="Path to output path with cleaned trees")
+
+    args = parser.parse_args()
+
     print("Welcome to the reader utility")
-
-    if len(sys.argv) != 4:
-        print("Need input path schema and output path recieved " + str(len(sys.argv)-1) + " arguments")
-        return
-
-    cleanFile(sys.argv[1], sys.argv[2], sys.argv[3])
+    cleanFile(args.inputPath, args.schema, args.outputPath)
 
 if __name__ == "__main__":
     main()
