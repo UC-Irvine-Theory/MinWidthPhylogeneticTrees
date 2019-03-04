@@ -1,6 +1,6 @@
 # MinWidthPhylogeneticTrees
 
-A minimum width phylogenetic tree drawer.
+A small width upward planar phylogenetic tree drawer.
 This project has several modules:
 
 ## Generate Drawings
