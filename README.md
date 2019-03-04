@@ -5,7 +5,7 @@ This project has several modules:
 
 ## Generate Drawings
 
-runner.py
+**runner.py**
 The main module, recieves and input file containing 1 or more trees and generates small width tree drawings.
 Runs the following heuristics:
   - Human Ordered: The order defined by the original tree source data.
@@ -23,7 +23,7 @@ Runs the following heuristics:
 For each tree and for each heuristic it generates a minimum width drawing and calculates its width. 
 It also generates a CSV file with the information for each tree and a nice scatter plot. 
 
-usage: runner.py [-h] [-n] [-s SEED] [-c CSVPATH] [-i IMAGEPATH]
+**usage:** runner.py [-h] [-n] [-s SEED] [-c CSVPATH] [-i IMAGEPATH]
                  inputPath schema
 
 positional arguments:
@@ -41,11 +41,11 @@ optional arguments:
 
 ## Clean Trees
 
-readTree.py
+**readTree.py**
 A cleaning utility for simplifying large tree set files. Recommended if running large files.
 Removed metadata information and trees without edge lengths. 
 
-usage: readTree.py [-h] inputPath schema outputPath
+**usage**: readTree.py [-h] inputPath schema outputPath
 
 positional arguments:
   inputPath   Path to file with trees
@@ -56,7 +56,7 @@ optional arguments:
   -h, --help  show this help message and exit
   
 This project originally focused on downloading large sets from TreeBase (a fantastic website!). When doing so a common problem with these files is that the large nexus files have a few small error. Mainly some tree definitions are missing or some trees are missing the closing semicolon. Both are easy to fix (delete the line, or add the semicolon), so check the error message if cleaning runs into problems. 
-  
+
 ## Requirements
   
 Requires python 3 and the following external libraries:
@@ -67,6 +67,11 @@ Requires python 3 and the following external libraries:
   - numpy: http://www.numpy.org -> Math
 
 Thanks to all the creators and maintainers of these libraries!
+A special thanks to the people at https://treebase.org/ and the contributers that provided the trees for our paper.
+
+## Other Files
+
+In Trees/ are the files used to generate the drawings of the paper "Minimum-Width Drawings of Phylogenetic Trees". The top-level has the cleaned files (reccommended for running experiments) and Trees/Original/ has the original files with the complete metadata. To see the origin of the tree please search for its name (eg: "Tr78560") at https://treebase.org/.
 
 ## Contact
 
