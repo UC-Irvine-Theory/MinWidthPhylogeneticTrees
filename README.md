@@ -70,4 +70,4 @@ Thanks to all the creators and maintainers of these libraries!
 
 ## Contact
 
-This module was made by the University of California, Irvine Computer Science Theory group. Please send comments to jjbesavi @ uci.edu
+This module was made by the University of California, Irvine Computer Science Theory group. Please send comments to jjbesavi at uci.edu
