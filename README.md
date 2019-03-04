@@ -3,6 +3,8 @@
 A minimum width phylogenetic tree drawer.
 This project has several modules:
 
+## Generate Drawings
+
 runner.py
 The main module, recieves and input file containing 1 or more trees and generates small width tree drawings.
 Runs the following heuristics:
@@ -36,7 +38,9 @@ optional arguments:
                         Path to csvFile. Default: results.csv
   -i IMAGEPATH, --imagePath IMAGEPATH
                         Path to Image storage folder. Defailt: Images/
-                        
+
+## Clean Trees
+
 readTree.py
 A cleaning utility for simplifying large tree set files. Recommended if running large files.
 Removed metadata information and trees without edge lengths. 
@@ -53,7 +57,7 @@ optional arguments:
   
   
   
-  ######################## Installation #####################################
+## Requirements
   
   Requires python 3 and the following external libraries:
   
