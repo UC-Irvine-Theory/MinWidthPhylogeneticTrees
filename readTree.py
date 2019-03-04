@@ -107,7 +107,12 @@ def cleanFile(path, schema, outputPath):
         return True
 
 
-    inputTrees = dendropy.TreeList.get(path=path, schema=schema, suppress_internal_node_taxa=True, suppress_leaf_node_taxa=True)
+    try:
+        inputTrees = dendropy.TreeList.get(path=path, schema=schema, suppress_internal_node_taxa=True, suppress_leaf_node_taxa=True)
+    except Exception as ex:
+        print(ex)
+        print("Tip: When downloading trees from TreeBase:\n\tSome trees may be missing a semi-colon(;) at the end of their definiton.\n\tOr have an empty definition.\n\tCheck your tree file.")
+        return
 
     print("Read in " + str(len(inputTrees)) + " trees\nCleaning...")
 
