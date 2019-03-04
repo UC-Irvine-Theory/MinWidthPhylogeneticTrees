@@ -63,12 +63,13 @@ def main():
 
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("inputPath", help="Path to file with trees")
-    parser.add_argument("schema", help = 'Schema of input file ("newick", "nexus", "nexml")')
+    parser.add_argument("inputPath", help ="Path to file with trees")
+    parser.add_argument("schema"   , help = 'Schema of input file ("newick", "nexus", "nexml")')
 
-    parser.add_argument("-n", "--noImage", help="Suppress images. Generate only csv and plot", action="store_true")
-    parser.add_argument("-s", "--seed"   , help="Set the seed of the random heuristic", type=int)
-    parser.add_argument("-c", "--csvPath", help="Path to csvFile")
+    parser.add_argument("-n", "--noImage"  , help="Suppress images. Generate only csv and plot", action="store_true")
+    parser.add_argument("-s", "--seed"     , help="Set the seed of the random heuristic", type=int)
+    parser.add_argument("-c", "--csvPath"  , help="Path to csvFile. Default: results.csv")
+    parser.add_argument("-i", "--imagePath", help="Path to Image storage folder. Defailt: Images/")
 
     args = parser.parse_args()
 
@@ -86,6 +87,12 @@ def main():
     except:
         print("Couldn't open csv output file: " + csvPath )
         return
+    print("CSV file: " + csvPath);
+
+    imagePath = "Images/"
+    if args.imagePath:
+        imagePath = args.imagePath
+    print("Image folder: " + imagePath);
 
     seed = random.randint(0, 1000000)
     if args.seed:
@@ -110,7 +117,7 @@ def main():
         #(heuristics.altDistanceToLeaf, "AltDToLeaf"),
         #(heuristics.nodesToLeaf, "NToLeaf"),
         #(heuristics.altNodesToLeaf, "AltNToLeaf"),
-        ]
+    ]
 
     def runTests(id, tree, tests):
 
@@ -124,7 +131,7 @@ def main():
             results.append((name,resultWidth))
 
             if not suppressImage:
-                save_img(resultTree, "Images/" + name + "_" + str(id))
+                save_img(resultTree, imagePath + name + "_" + str(id))
             print("Finished " + name, end = " ")
         print("")
         sys.stdout.flush()
