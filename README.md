@@ -55,13 +55,19 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
   
-  
+This project originally focused on downloading large sets from TreeBase (a fantastic website!). When doing so a common problem with these files is that the large nexus files have a few small error. Mainly some tree definitions are missing or some trees are missing the closing semicolon. Both are easy to fix (delete the line, or add the semicolon), so check the error message if cleaning runs into problems. 
   
 ## Requirements
   
-  Requires python 3 and the following external libraries:
+Requires python 3 and the following external libraries:
   
-  dendropy: https://dendropy.org --> Reading and writing phylogenetic data
-  cv2: http://opencv.org/ --> Image generation
-  matplotlib: https://matplotlib.org -> Scatter plot
-  numpy: http://www.numpy.org -> Math
+  - dendropy: https://dendropy.org --> Reading and writing phylogenetic data
+  - cv2: http://opencv.org/ --> Image generation
+  - matplotlib: https://matplotlib.org -> Scatter plot
+  - numpy: http://www.numpy.org -> Math
+
+Thanks to all the creators and maintainers of these libraries!
+
+## Contact
+
+This module was made by the University of California, Irvine Computer Science Theory group. Please send comments to jjbesavi @ uci.edu
