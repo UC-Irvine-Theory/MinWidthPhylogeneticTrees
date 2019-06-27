@@ -1,6 +1,4 @@
 import dendropy
-
-#Represents a tree node and its drawing information
 class Node:
 
     class Stats:
@@ -77,4 +75,50 @@ class Node:
         for c in self.children:
             count += c.size()
         return count
-
+        
+    def getAllNonLeafNodes(self):
+        nodes = [self]
+        for c in self.children:
+            if len(c.children) > 0:
+                nodes += c.getAllNonLeafNodes()
+        return nodes
+            
+    def nonLeafNodeHeights(self):
+        heights = set()
+        for node in self.getAllNonLeafNodes():
+            heights.add(node.height)
+        return heights
+        
+    def hasOnlyLeaves(self):
+        return len(self.children) > 0 and all([len(c.children) == 0 for c in self.children])
+        
+    def allChildrenHeights(self):
+        childrenHeights = set()
+        for c in self.children:
+            childrenHeights.add(c.height)
+        return childrenHeights
+        
+    def closestChild(self):
+        if len(self.children) == 0:
+            return -1
+        else:
+            return min(self.children, key = lambda c : c.height)
+        
+    def ignoreFlip(self, nonLeafNodeHeights):
+        # First note that the root will never need to be flipped
+        if not self.parent:
+            return True
+        
+        # Then check that this has only leaves
+        if not self.hasOnlyLeaves():
+            return False
+        else:
+            # Then check if there is a node that can go under some of our leaves, but not others
+            childrenHeights = self.allChildrenHeights()
+            minChildHeight = min(childrenHeights)
+            maxChildHeight = max(childrenHeights)
+            for nodeHeight in nonLeafNodeHeights:
+                if minChildHeight < nodeHeight and maxChildHeight >= nodeHeight:
+                    return False
+        return True
+        

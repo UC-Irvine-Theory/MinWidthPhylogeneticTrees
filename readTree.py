@@ -57,6 +57,12 @@ def read(path, schema):
 
     rawTree = normalize(rawTree)
 
+    #rawTree.print_plot()
+
+    #for n in rawTree:
+    #    print(str(n.norm_root_distance) + "\t" + str(n.root_distance) + "\t" + str(n))
+
+    #What do with forests?
     root = create(rawTree.seed_node)
 
     fixZeroLengthEdges(root)
@@ -78,6 +84,7 @@ def readTrees(path, schema):
             rawTree = normalize(rawTree)
 
             tree = create(rawTree.seed_node)
+            tree.label = rawTree.label
 
             fixZeroLengthEdges(tree)
         except:
@@ -98,11 +105,14 @@ def cleanFile(path, schema, outputPath):
         #large degree nodes?
         maxDegreeNode = max(tree, key = lambda node : len(node.child_nodes()))
 
-        if len(maxDegreeNode.child_nodes()) > 4:
+        #print("Max degree: " + str(len(maxDegreeNode.child_nodes())) )
+
+        if len(maxDegreeNode.child_nodes()) > 3:
+            print("Removing tree maxDegree = " + str(len(maxDegreeNode.child_nodes())))
             return False
 
-        if len(tree.nodes()) < 20:
-            return False
+        #if len(tree.nodes()) > 50 or len(tree.nodes()) < 41:
+        #    return False
 
         return True
 
@@ -122,9 +132,17 @@ def cleanFile(path, schema, outputPath):
 
     print("Writing " + str(len(trees)) + " trees")
 
+    sizes = [len(t.nodes()) for t in trees]
+    maxN = max(sizes)
+    minN = min(sizes)
+    avgN = sum(sizes) / len(trees)
+
+    print("\tMax: " + str(maxN) + "\n\tMin: " + str(minN) + "\n\tAvg: " + str(avgN))
+
     trees.write(path=outputPath, schema=schema)
 
 def main():
+    print("Welcome to the reader utility")
 
     parser = argparse.ArgumentParser()
 
@@ -140,3 +158,12 @@ def main():
 if __name__ == "__main__":
     main()
 
+#trees = readTrees("Trees/50TaxaTrees.nex", "nexus")
+
+#tree = read("Trees/T72324.nex", "nexus")
+#
+#tree.printMe(0)
+#
+#embedTree(tree)
+#
+#tree.printMe(0)

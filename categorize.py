@@ -160,13 +160,15 @@ def filterFile(path, schema, outputPath=None,remove_solo=False,csv=None):
     if not outputPath:
     	outputPath=path[-4]
     binned = condense(from_file)
-    makeScatter(binned)
-    makeScatter(from_file)
+    #makeScatter(binned)
+    #makeScatter(from_file)
     get_stats(from_file)
     for k,sat in results.items():
     	to_draw=[t for i,t in enumerate(from_file) if i in sat]
     	print('\nAnalysing '+str(len(to_draw))+' trees ('+k+')')
-    	makeScatter(to_draw)
+    	binned = condense(to_draw)
+    	#makeScatter(binned)
+    	#makeScatter(to_draw)
     	get_stats(to_draw)
     	if len(k)==0:
     		k='1'

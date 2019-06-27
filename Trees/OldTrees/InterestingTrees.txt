@@ -1,0 +1,8 @@
+From 50Taxa:
+    Tree 24, Random was better than greedy. Seed: 468857
+    Tree 16, Random was better than greedy. Seed: 713082, 624561
+    Tree 19, Random was better than greedy. Seed: 932172
+
+From plant:
+    Tree 57, 58 Heavy Won
+    Tree 75 (a lot!), 3 Rasndom won seed: 608653
