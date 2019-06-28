@@ -33,21 +33,22 @@ It also generates a CSV file with the information for each tree and a nice scatt
 **usage:** 
 ```runner.py [-h] [-n] [-s SEED] [-c CSVPATH] [-i IMAGEPATH] [-l HEURISTIC1 [HEURISTIC2 ... HEURISTICN]] inputPath schema ```
 
-positional arguments:\
+positional arguments:
 ```
   inputPath             Path to file with trees
   schema                Schema of input file ("newick", "nexus", "nexml")
 ```
 optional arguments:
 ```
-  -h, --help                      show this help message and exit
-  -n, --noImage                   Suppress images. Generate only csv and plot
-  -s SEED, --seed SEED            Set the seed of the random heuristic
-  -c CSVPATH, --csvPath CSVPATH   Path to csvFile.              Default: results.csv
-  -i IMAGEPATH, --imagePath imagePath
-                                  Path to Image storage folder. Default: Images/
-  -l HEURISTICS, --heuristics HEURISTICS   
-                                  List of one or more heuristics to run. Default: "Orig" "Greedy" "White" "HillClimbing" "Annealing"
+  -h,            --help              Show this help message and exit
+  -n,            --noImage           Suppress images. Generate only csv and plot
+  -s SEED,       --seed SEED         Set the seed of the random heuristic
+  -c CSVPATH,    --csvPath CSVPATH   Path to csvFile.              
+                            Default: results.csv
+  -i IMAGEPATH,  --imagePath         imagePath Path to Image storage folder. 
+                            Default: Images/
+  -l HEURIST, --heuristics HEURIST   List of one or more heuristics to run. 
+                            Default: "Orig" "Greedy" "White" "HillClimbing" "Annealing"
 ```
 ## Clean Trees
 
