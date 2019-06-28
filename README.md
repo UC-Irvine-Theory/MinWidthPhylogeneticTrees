@@ -30,14 +30,16 @@ Furthermore the following heuristics are also available:
 For each tree and for each heuristic it generates a minimum width drawing and calculates its width. 
 It also generates a CSV file with the information for each tree and a nice scatter plot. 
 
-**usage:** runner.py [-h] [-n] [-s SEED] [-c CSVPATH] [-i IMAGEPATH] [-l HEURISTIC1 [HEURISTIC2 ... HEURISTICN]]
-                 inputPath schema
+**usage:** 
+```runner.py [-h] [-n] [-s SEED] [-c CSVPATH] [-i IMAGEPATH] [-l HEURISTIC1 [HEURISTIC2 ... HEURISTICN]] inputPath schema ```
 
-positional arguments:
+positional arguments:\
+```
   inputPath             Path to file with trees
   schema                Schema of input file ("newick", "nexus", "nexml")
-
+```
 optional arguments:
+```
   -h, --help                      show this help message and exit
   -n, --noImage                   Suppress images. Generate only csv and plot
   -s SEED, --seed SEED            Set the seed of the random heuristic
@@ -46,22 +48,23 @@ optional arguments:
                                   Path to Image storage folder. Default: Images/
   -l HEURISTICS, --heuristics HEURISTICS   
                                   List of one or more heuristics to run. Default: "Orig" "Greedy" "White" "HillClimbing" "Annealing"
-
+```
 ## Clean Trees
 
 **readTree.py**
 A cleaning utility for simplifying large tree set files. Recommended if running large files.
 Removed metadata information and trees without edge lengths. 
 
-**usage**: readTree.py [-h] inputPath schema outputPath
+**usage**: ```readTree.py [-h] inputPath schema outputPath```
 
 positional arguments:
+```
   inputPath   Path to file with trees
   schema      Schema of input file ("newick", "nexus", "nexml")
   outputPath  Path to output path with cleaned trees
-
+```
 optional arguments:
-  -h, --help  show this help message and exit
+```  -h, --help  show this help message and exit```
   
 This project originally focused on downloading large sets from TreeBase (a fantastic website!). When doing so a common problem with these files is that the large nexus files have a few small error. Mainly some tree definitions are missing or some trees are missing the closing semicolon. Both are easy to fix (delete the line, or add the semicolon), so check the error message if cleaning runs into problems. 
 
