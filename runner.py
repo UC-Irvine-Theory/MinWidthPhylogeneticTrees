@@ -204,6 +204,7 @@ def main():
     parser.add_argument("-s", "--seed"     , help="Set the seed of the random heuristic", type=int)
     parser.add_argument("-c", "--csvPath"  , help="Path to csvFile. Default: results.csv")
     parser.add_argument("-i", "--imagePath", help="Path to Image storage folder. Defailt: Images/")
+    parser.add_argument('-l','--heuristics', nargs='+', help='<Required> Set flag', required=False)
 
     args = parser.parse_args()
 
@@ -242,20 +243,23 @@ def main():
 
     tests = [
         (heuristics.identity, "Orig"),
-        #(heuristics.randomShuffle, "Random"),
+        (heuristics.randomShuffle, "Random"),
         (heuristics.greedy, "Greedy"),
-        #(heuristics.leftHeavy, "Heavy"),
-        #(heuristics.tetris, "Tetris"),
+        (heuristics.leftHeavy, "Heavy"),
+        (heuristics.tetris, "Tetris"),
         (heuristics.whitespacePhobic, "White"),
         (heuristics.hillClimbing, "HillClimbing"),
         (heuristics.annealing, "Annealing"),
-        #(heuristics.bruteForce, "BruteForce"),
-        #(heuristics.distanceToLeaf, "DToLeaf"),
-        #(heuristics.altDistanceToLeaf, "AltDToLeaf"),
-        #(heuristics.nodesToLeaf, "NToLeaf"),
-        #(heuristics.altNodesToLeaf, "AltNToLeaf"),
+        (heuristics.bruteForce, "BruteForce"),
+        (heuristics.distanceToLeaf, "DToLeaf"),
+        (heuristics.altDistanceToLeaf, "AltDToLeaf"),
+        (heuristics.nodesToLeaf, "NToLeaf"),
+        (heuristics.altNodesToLeaf, "AltNToLeaf"),
     ]
-
+    if args.heuristics is not None:
+        tests=[(f,heuristic) for f,heuristic in tests if heuristic in args.heuristics]
+    else:
+        tests=[(f,heuristic) for f,heuristic in tests if heuristic in ["Orig","Greedy","White","HillClimbing","Annealing"]]
     def runTests(id, tree, tests):
 
         results = []
@@ -277,7 +281,8 @@ def main():
         sys.stdout.flush()
 
         return results
-
+    print(args.heuristics)
+    print(tests)
     allResults = []
     for i,t in enumerate(trees):
 

@@ -1,6 +1,0 @@
-species_tree.ensembl.branch_len.nw   from: https://github.com/Ensembl/ensembl-compara/blob/release/95/scripts/pipeline/species_tree.ensembl.branch_len.nw  from: http://uswest.ensembl.org/info/genome/compara/species_trees.html
-:
-
-
-TreeBase_S19934 A 4000-species dataset provides a new insight into the evolution of ferns
-
